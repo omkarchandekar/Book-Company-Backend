@@ -16,6 +16,7 @@ var mongoose = require('mongoose');
 const BookModel = require('./database/books');
 const AuthorModel = require('./database/authors');
 const PublicationModel = require('./database/publications');
+const UserModel = require('./database/users');
 //Set up default mongoose connection
 mongoose.connect(process.env.MONGODB_URI , {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>console.log("CONNECTION ESTABLISHED"));
 
@@ -117,7 +118,7 @@ app.post("/authors", async(req, res) => {
 })
 
 // http://localhost:3000/publications
-app.post("/publication", async(req, res) => {
+app.post("/publications", async(req, res) => {
     const addNewPublication = await PublicationModel.create(req.body);
     return res.json({
         publicationAdded : addNewPublication,
@@ -199,6 +200,15 @@ app.delete("/publication-delete/:id", async(req,res) => {
     id = Number(id);
     const deletePublication = await PublicationModel.deleteOne({id : id});
     return res.json({publicationDeleted : deletePublication, message : "Publication was Deleted"});
+})
+
+// http://localhost:3000/users
+app.post("/users", async (req, res) => {
+    const addNewUser = await UserModel.create(req.body);
+    return res.json({
+        userAdded : addNewUser,
+        message : "User was Added"        
+    });
 })
 
 app.listen(3000, ()=>{
