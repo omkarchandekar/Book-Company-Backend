@@ -202,8 +202,8 @@ app.delete("/publication-delete/:id", async(req,res) => {
     return res.json({publicationDeleted : deletePublication, message : "Publication was Deleted"});
 })
 
-// http://localhost:3000/users
-app.post("/users", async (req, res) => {
+// http://localhost:3000/user-register
+app.post("/user-register", async (req, res) => {
     const addNewUser = await UserModel.create(req.body);
     return res.json({
         userAdded : addNewUser,
